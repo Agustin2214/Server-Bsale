@@ -33,7 +33,7 @@ class Server {
 
 
     routes(){
-       
+        this.app.use('/category', require('../routes/category'))
         this.app.use('/products', require('../routes/product'))
     }
 
