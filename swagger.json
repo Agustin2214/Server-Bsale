@@ -1,0 +1,281 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Bsale test",
+    "description": "Application created for the BSALE challenge. It is a store simulation, it has its respective filters and orders consumed by api from the backend.\n\n\n\nSome useful links:\n- [Cliente-repository](https://github.com/Agustin2214/Cliente-Bsale)\n- [Server-repository](https://github.com/Agustin2214/Server-Bsale)",
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "https://bsale-app-tienda.herokuapp.com/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "category",
+      "description": "Everything about your categorys"
+    },
+    {
+      "name": "products",
+      "description": "Everything about your products"
+    }
+  ],
+  "paths": {
+    "/category": {
+      "get": {
+        "tags": [
+          "category"
+        ],
+        "summary": "Get all category",
+        "description": "Get all category",
+        "operationId": "getCategory",
+        "responses": {
+          "200": {
+            "description": "operacion correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/category"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/all": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Get all products",
+        "description": "You get all the products and you can also order by price, discount or alphabetically and filter by price",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/sortParam"
+          },
+          {
+            "$ref": "#/components/parameters/limitParam"
+          },
+          {
+            "$ref": "#/components/parameters/startParam"
+          },
+          {
+            "$ref": "#/components/parameters/pricemax"
+          },
+          {
+            "$ref": "#/components/parameters/pricemin"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operacion correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/products"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/category": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Get all products by category",
+        "description": "You get all the products by category and you can also order by price, discount or alphabetically and filter by price",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/sortParam"
+          },
+          {
+            "$ref": "#/components/parameters/limitParam"
+          },
+          {
+            "$ref": "#/components/parameters/startParam"
+          },
+          {
+            "$ref": "#/components/parameters/pricemax"
+          },
+          {
+            "$ref": "#/components/parameters/pricemin"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Filter by category",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operacion correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/products"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/name": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Get all products by name",
+        "description": "You get all the products by name and you can also order by price, discount or alphabetically and filter by price",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/sortParam"
+          },
+          {
+            "$ref": "#/components/parameters/limitParam"
+          },
+          {
+            "$ref": "#/components/parameters/startParam"
+          },
+          {
+            "$ref": "#/components/parameters/pricemax"
+          },
+          {
+            "$ref": "#/components/parameters/pricemin"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Filter by name",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operacion correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/products"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "sortParam": {
+        "name": "orden",
+        "in": "query",
+        "description": " sort by parameter",
+        "example": [
+          "abc",
+          "cba",
+          "pricemin",
+          "pricemax",
+          "discountmin",
+          "discountmax"
+        ],
+        "schema": {
+          "type": "string"
+        }
+      },
+      "limitParam": {
+        "name": "limit",
+        "in": "query",
+        "description": "number of results where to end search",
+        "example": 50,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "startParam": {
+        "name": "start",
+        "in": "query",
+        "description": "number of results to start from",
+        "example": 1,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "pricemin": {
+        "name": "pmin",
+        "in": "query",
+        "description": "filter by minimum price",
+        "example": 5000,
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "pricemax": {
+        "name": "pmax",
+        "in": "query",
+        "description": "Filtered by maximum price",
+        "example": 15000,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    },
+    "schemas": {
+      "products": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 25
+          },
+          "name": {
+            "type": "string",
+            "example": "COCA COLA"
+          },
+          "discount": {
+            "type": "string",
+            "example": 50
+          },
+          "url_image": {
+            "type": "string",
+            "example": "https://images.pexels.com/photos/50593/coca-cola-cold-drink-soft-drink-coke-50593.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          },
+          "price": {
+            "type": "number",
+            "example": 250
+          },
+          "category": {
+            "type": "number",
+            "example": 1
+          },
+          "categories": {
+            "type": "object",
+            "$ref": "#/components/schemas/category"
+          }
+        }
+      },
+      "category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "example": 1,
+            "type": "number"
+          },
+          "name": {
+            "example": "BEBIDAS SIN ALCOHOL",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

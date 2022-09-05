@@ -2,6 +2,8 @@ const express = require('express')
 const cors = require('cors')
 const db = require("../db/connection")
 const asociations = require("../models/asociations")
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
 
 class Server {
 
@@ -25,7 +27,7 @@ class Server {
                 throw new Error(error)
         }
    
-    }
+    } 
 
     middlewares(){
         this.app.use(cors())
@@ -35,6 +37,7 @@ class Server {
     routes(){
         this.app.use('/category', require('../routes/category'))
         this.app.use('/products', require('../routes/product'))
+        this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     }
 
     listen(){
