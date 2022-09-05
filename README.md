@@ -51,8 +51,10 @@ utilizar las credeciales para rellernar .env
 https://bsale-app-tienda.herokuapp.com/api-docs
 ```
 
-###Deploy
+### Deploy
+
 Front:https://cliente-bsale.vercel.app/
+
 Back:https://bsale-app-tienda.herokuapp.com/
 ### Stack usado
 * Node-express
